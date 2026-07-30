@@ -7,8 +7,12 @@ const storyData = {
 document.querySelectorAll('.story-tab').forEach((tab) => {
   tab.addEventListener('click', () => {
     const data = storyData[tab.dataset.story];
-    document.querySelectorAll('.story-tab').forEach((item) => item.classList.remove('active'));
+    document.querySelectorAll('.story-tab').forEach((item) => {
+      item.classList.remove('active');
+      item.setAttribute('aria-selected', 'false');
+    });
     tab.classList.add('active');
+    tab.setAttribute('aria-selected', 'true');
     document.querySelector('#story-title').textContent = data.title;
     document.querySelector('#story-copy').textContent = data.copy;
     document.querySelector('#story-metric').textContent = data.metric;
@@ -71,6 +75,31 @@ const revealObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.14, rootMargin: '0px 0px -40px' });
 
 document.querySelectorAll('.reveal').forEach((element) => revealObserver.observe(element));
+
+document.querySelectorAll('.integration-token img').forEach((image) => {
+  image.addEventListener('error', () => {
+    image.hidden = true;
+  });
+});
+
+const productLinks = [...document.querySelectorAll('[data-product-link]')];
+const productChapters = document.querySelectorAll('[data-product-chapter]');
+const productObserver = new IntersectionObserver((entries) => {
+  const visible = entries
+    .filter((entry) => entry.isIntersecting)
+    .sort((left, right) => Math.abs(left.boundingClientRect.top) - Math.abs(right.boundingClientRect.top))[0];
+  if (!visible) return;
+
+  const chapter = visible.target.closest('[data-product-chapter]');
+  productLinks.forEach((link) => {
+    const active = link.dataset.productLink === chapter?.dataset.productChapter;
+    link.classList.toggle('active', active);
+    if (active) link.setAttribute('aria-current', 'true');
+    else link.removeAttribute('aria-current');
+  });
+}, { threshold: 0, rootMargin: '-15% 0px -70%' });
+
+productChapters.forEach((chapter) => productObserver.observe(chapter.querySelector('.chapter-head')));
 
 const signalVisual = document.querySelector('.signal-visual');
 signalVisual?.addEventListener('pointermove', (event) => {

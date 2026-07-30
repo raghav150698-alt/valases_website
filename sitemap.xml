@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://valases.com/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url><loc>https://valases.com/company</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://valases.com/hiring</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://valases.com/assessments</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://valases.com/candidate-experience</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://valases.com/enterprise</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://valases.com/pricing</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://valases.com/trust</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://valases.com/integrations</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://valases.com/implementation</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://valases.com/status</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://valases.com/demo</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://valases.com/privacy</loc><changefreq>yearly</changefreq><priority>0.4</priority></url>
+  <url><loc>https://valases.com/terms</loc><changefreq>yearly</changefreq><priority>0.4</priority></url>
+  <url><loc>https://valases.com/cookies</loc><changefreq>yearly</changefreq><priority>0.4</priority></url>
+  <url><loc>https://valases.com/candidate-privacy</loc><changefreq>yearly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://valases.com/proctoring</loc><changefreq>yearly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://valases.com/accessibility</loc><changefreq>yearly</changefreq><priority>0.6</priority></url>
+</urlset>
