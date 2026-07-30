@@ -4,9 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#102719" />
+    <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+    <meta name="author" content="Valases" />
     <meta name="description" content="Valases is the enterprise hiring operating system for role planning, task-based assessments, structured decisions, and controlled offers." />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Valases" />
+    <meta property="og:url" content="https://valases.com/" />
+    <meta property="og:locale" content="en_US" />
     <meta property="og:title" content="Valases | Hiring, with signal." />
     <meta property="og:description" content="One enterprise hiring system for role planning, real-work assessments, structured evidence, and confident decisions." />
     <meta property="og:image" content="https://valases.com/public/og.jpg" />
@@ -18,21 +22,64 @@
     <meta name="twitter:description" content="One enterprise hiring system for role planning, real-work assessments, structured evidence, and confident decisions." />
     <meta name="twitter:image" content="https://valases.com/public/og.jpg" />
     <link rel="canonical" href="https://valases.com/" />
+    <link rel="alternate" hreflang="en" href="https://valases.com/" />
+    <link rel="alternate" hreflang="x-default" href="https://valases.com/" />
     <title>Valases | Hiring, with signal.</title>
     <link rel="icon" href="public/valases-logo-cropped.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css?v=20260730-2" />
+    <link rel="stylesheet" href="styles.css?v=20260730-5" />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "SoftwareApplication",
-        "name": "Valases",
-        "url": "https://valases.com/",
-        "applicationCategory": "BusinessApplication",
-        "operatingSystem": "Web",
-        "description": "Enterprise hiring operating system for role planning, task-based assessments, structured decisions, and controlled offers."
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://valases.com/#organization",
+            "name": "Valases",
+            "url": "https://valases.com/",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://valases.com/public/valases-logo.png"
+            },
+            "email": "hello@valases.com"
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://valases.com/#website",
+            "url": "https://valases.com/",
+            "name": "Valases",
+            "publisher": { "@id": "https://valases.com/#organization" },
+            "inLanguage": "en"
+          },
+          {
+            "@type": "SoftwareApplication",
+            "@id": "https://valases.com/#software",
+            "name": "Valases",
+            "url": "https://valases.com/",
+            "applicationCategory": "BusinessApplication",
+            "applicationSubCategory": "Hiring software",
+            "operatingSystem": "Web",
+            "description": "Enterprise hiring operating system for role planning, task-based assessments, structured decisions, and controlled offers.",
+            "publisher": { "@id": "https://valases.com/#organization" },
+            "offers": {
+              "@type": "AggregateOffer",
+              "priceCurrency": "USD",
+              "lowPrice": "99",
+              "offerCount": "3",
+              "url": "https://valases.com/pricing"
+            },
+            "featureList": [
+              "Hiring operations",
+              "Task-based assessments",
+              "Consent-led proctoring",
+              "Human-reviewed AI assistance",
+              "Structured interview evidence",
+              "Enterprise access controls"
+            ]
+          }
+        ]
       }
     </script>
   </head>
@@ -78,7 +125,7 @@
       </section>
 
       <section class="signal-section page-shell" id="signal">
-        <div class="section-index">02 <span>/</span> The shift</div>
+        <div class="section-index">The shift</div>
         <div class="signal-layout">
           <div class="signal-heading reveal">
             <h2>Less noise.<br /><span>More knowing.</span></h2>
@@ -105,7 +152,7 @@
       <section class="platform-section" id="platform">
         <div class="page-shell">
           <div class="section-head reveal">
-            <div><div class="section-index">03 <span>/</span> The platform</div><h2>One system.<br /><span>Every decisive moment.</span></h2></div>
+            <div><div class="section-index">The platform</div><h2>One system.<br /><span>Every decisive moment.</span></h2></div>
             <p>From an approved role to an accepted offer, Valases keeps the work, evidence, and decisions in one clear operating system.</p>
           </div>
           <div class="module-grid">
@@ -119,7 +166,7 @@
 
       <section class="products-section page-shell" id="products">
         <div class="products-intro reveal">
-          <div class="section-index">04 <span>/</span> Product suite</div>
+          <div class="section-index">Product suite</div>
           <h2>One platform.<br /><span>Three focused experiences.</span></h2>
           <p>Every surface is designed for the person using it, while the organization keeps one source of truth from role opening to signed offer.</p>
         </div>
@@ -146,8 +193,8 @@
             <div class="product-copy">
               <span class="product-kicker">FOR SKILL SIGNAL</span>
               <h3>Assessment Studio</h3>
-              <p>Build work samples that reflect the role, then review the evidence with context.</p>
-              <ul><li>Reusable assessment library and publishing</li><li>Coding, spreadsheet, MCQ, and domain tools</li><li>Deterministic scoring checkpoints</li><li>Human-controlled result review</li></ul>
+              <p>Build work samples that reflect the role, then use AI-assisted first-pass feedback to review the evidence with context.</p>
+              <ul><li>Reusable assessment library and publishing</li><li>Coding, spreadsheet, MCQ, and domain tools</li><li>Deterministic scoring checkpoints</li><li>AI-assisted feedback with human approval</li></ul>
             </div>
             <div class="product-ui assessment-ui" aria-label="Assessment studio preview">
               <div class="assessment-head"><span>Finance Operations Analyst</span><b>PUBLISHED</b></div>
@@ -174,7 +221,7 @@
       <section class="deep-dive-section" id="capabilities">
         <div class="page-shell">
           <div class="deep-dive-intro reveal">
-            <div class="section-index">05 <span>/</span> Inside the products</div>
+            <div class="section-index">Inside the products</div>
             <h2>Every workflow.<br /><span>Thought through.</span></h2>
             <p>Valases connects the complete hiring journey without flattening it. Each product is purpose-built for the decisions, evidence, and people it serves.</p>
           </div>
@@ -206,7 +253,7 @@
                   <article class="capability-item reveal"><span>01</span><h4>Role architecture</h4><p>Define job codes, departments, locations, required skills, hiring plans, responsibilities, and a clear role description before the pipeline opens.</p></article>
                   <article class="capability-item reveal"><span>02</span><h4>Candidate directory</h4><p>Keep consent, contact details, structured skills, resume summaries, and every role application connected to one candidate record.</p></article>
                   <article class="capability-item reveal"><span>03</span><h4>Controlled pipeline</h4><p>Move applications through defined stages with explicit ownership, transition checks, duplicate-action protection, and a visible decision history.</p></article>
-                  <article class="capability-item reveal"><span>04</span><h4>Explainable screening</h4><p>Compare role requirements with stated evidence, expose matched and unverified skills, and require human review instead of automatic rejection.</p></article>
+                  <article class="capability-item reveal"><span>04</span><h4>AI-assisted screening</h4><p>Organize role requirements, matched evidence, unverified skills, and limitations into a reviewable summary without automatic rejection.</p></article>
                   <article class="capability-item reveal"><span>05</span><h4>Structured interviews</h4><p>Schedule role-linked interviews and capture comparable ratings, recommendations, and job-relevant evidence in a shared scorecard.</p></article>
                   <article class="capability-item reveal"><span>06</span><h4>Operational visibility</h4><p>See active roles, stage movement, upcoming interviews, outstanding reviews, offer status, and the work that needs attention next.</p></article>
                 </div>
@@ -219,7 +266,7 @@
                   <p>Create role-relevant assessments that combine knowledge, execution, timing, integrity signals, and reviewable scoring evidence.</p>
                 </header>
                 <figure class="chapter-image chapter-image-assessment reveal">
-                  <img src="public/assessment-workspace.webp" alt="A professional completing a spreadsheet and coding work-sample assessment" loading="lazy" />
+                  <img src="public/assessment-overview.webp" alt="A structured assessment review workspace with spreadsheet and coding evidence" loading="lazy" />
                   <figcaption><span>REAL WORK ENVIRONMENTS</span><b>Evidence over proxies</b></figcaption>
                 </figure>
                 <div class="assessment-types reveal" aria-label="Available assessment formats">
@@ -228,8 +275,8 @@
                 <div class="detail-groups">
                   <section class="detail-group reveal"><span class="detail-icon">A</span><div><h4>Task-based assessments</h4><p>Place candidates inside practical workspaces instead of asking them to describe what they could do.</p><ul><li>Role-specific prompts and source material</li><li>Spreadsheet cells, formulas, and workbook evidence</li><li>Code editors with starter code and language choice</li><li>Accounting, tax, and business case simulations</li></ul></div></section>
                   <section class="detail-group reveal"><span class="detail-icon">T</span><div><h4>Time-centric design</h4><p>Control how time shapes the exercise while keeping the experience clear for candidates.</p><ul><li>Whole-assessment or per-question timing</li><li>Configurable duration and assessment windows</li><li>Visible countdown and secure session state</li><li>Autosave, recovery, and idempotent submission</li></ul></div></section>
-                  <section class="detail-group reveal"><span class="detail-icon">P</span><div><h4>Consent-led proctoring</h4><p>Collect advisory integrity signals transparently, with candidate consent and mandatory human interpretation.</p><ul><li>Camera and environment preflight</li><li>Fullscreen, focus, and tab-visibility events</li><li>Phone, gaze, and multiple-person signals</li><li>Evidence review without automated hiring decisions</li></ul></div></section>
-                  <section class="detail-group reveal"><span class="detail-icon">S</span><div><h4>Explainable scoring</h4><p>Know how a score was produced and where reviewer judgment entered the process.</p><ul><li>Single- and multiple-correct questions</li><li>Marks, negative marking, pass scores, and attempts</li><li>Weighted deterministic checkpoints</li><li>Score overrides with reasons and review history</li></ul></div></section>
+                  <section class="detail-group reveal"><span class="detail-icon">P</span><div><h4>Consent-led proctoring</h4><p>Use AI-assisted observation transparently, with candidate consent and mandatory human interpretation.</p><ul><li>Camera and environment preflight</li><li>Fullscreen, focus, and tab-visibility events</li><li>AI-assisted phone, gaze, and multiple-person signals</li><li>Evidence review without automated hiring decisions</li></ul></div></section>
+                  <section class="detail-group reveal"><span class="detail-icon">AI</span><div><h4>AI-assisted, explainable review</h4><p>Combine deterministic scoring with AI-generated first-pass feedback, then keep reviewer edits and reasons visible.</p><ul><li>Single- and multiple-correct questions</li><li>Weighted deterministic checkpoints</li><li>Rubric-aware draft feedback for review</li><li>Reviewer changes and outcome history</li></ul></div></section>
                 </div>
                 <div class="assessment-builder-strip reveal">
                   <div><span>BUILD</span><strong>Draft, preview, validate</strong></div>
@@ -271,13 +318,13 @@
                   <p>Bring screening, assessment, interview, compliance, and compensation into one controlled path to a defensible decision.</p>
                 </header>
                 <figure class="chapter-image chapter-image-decision reveal">
-                  <img src="public/decision-room.webp" alt="A hiring panel reviewing structured candidate evidence together" loading="lazy" />
+                  <img src="public/decision-overview.webp" alt="A structured hiring decision workspace connecting evidence to an offer" loading="lazy" />
                   <figcaption><span>SHARED DECISION EVIDENCE</span><b>Clear enough to explain</b></figcaption>
                 </figure>
                 <div class="decision-grid">
                   <section class="decision-column reveal"><span>BEFORE THE DECISION</span><h4>Evidence readiness</h4><ul><li>Screening completion status</li><li>Assessment results and checkpoint evidence</li><li>Structured interview scorecards</li><li>Consent and review guardrail checks</li></ul></section>
                   <section class="decision-column reveal"><span>AT THE DECISION</span><h4>Controlled progression</h4><ul><li>Required scorecard before offer stages</li><li>Blocking compliance checks made visible</li><li>Decision reason codes and reviewer context</li><li>No automatic rejection or hiring decision</li></ul></section>
-                  <section class="decision-column reveal"><span>AFTER THE DECISION</span><h4>Offer workspace</h4><ul><li>Draft and review compensation</li><li>Base, variable, benefits, and CTC detail</li><li>Separate prepare and release permissions</li><li>Released offers and retained signed copies</li></ul></section>
+                  <section class="decision-column reveal"><span>AFTER THE DECISION</span><h4>Offer workspace</h4><ul><li>Draft and review compensation</li><li>AI-assisted first draft from approved terms</li><li>Separate prepare and release permissions</li><li>Released offers and retained signed copies</li></ul></section>
                 </div>
                 <div class="governance-line reveal">
                   <div><strong>Role-based access</strong><span>Owners, recruiters, managers, interviewers, payroll, and viewers</span></div>
@@ -293,7 +340,7 @@
       <section class="enterprise-section">
         <div class="enterprise-grid" aria-hidden="true"></div>
         <div class="page-shell enterprise-inner">
-          <div class="enterprise-copy reveal"><div class="section-index">06 <span>/</span> Enterprise control</div><h2>Global by design.<br /><span>Controlled by you.</span></h2><p>Valases is being built for organizations that need hiring speed without giving up governance, explainability, or regional control.</p></div>
+          <div class="enterprise-copy reveal"><div class="section-index">Enterprise control</div><h2>Global by design.<br /><span>Controlled by you.</span></h2><p>Valases is being built for organizations that need hiring speed without giving up governance, explainability, or regional control.</p></div>
           <div class="enterprise-features">
             <article class="enterprise-item reveal"><span>01</span><h3>Regional deployment</h3><p>Tokyo and Mumbai deployment foundations keep organization data assigned to its approved region.</p></article>
             <article class="enterprise-item reveal"><span>02</span><h3>Role-based access</h3><p>Owners, recruiters, hiring managers, interviewers, payroll, and viewers see only the work they need.</p></article>
@@ -306,31 +353,55 @@
       <section class="integrations-section" id="integrations">
         <div class="page-shell integrations-layout">
           <div class="integrations-copy reveal">
-            <div class="section-index">07 <span>/</span> Connected work</div>
+            <div class="section-index">Connected work</div>
             <h2>Your hiring system<br /><span>should not be an island.</span></h2>
             <p>Connect the calendars, meetings, collaboration, storage, payments, and data services your teams already trust. Valases keeps the hiring record coherent while work moves across the tools around it.</p>
             <a class="arrow-link" href="integrations.html">Explore integrations <span>&nearr;</span></a>
           </div>
-          <div class="integration-rain reveal" aria-label="Eleven Valases integration providers">
+          <div class="integration-rain reveal" aria-label="Eleven Valases integration providers. Select a provider to view details.">
             <div class="integration-rain-top"><span>11 PROVIDER PATHS</span><b>One controlled hiring record</b></div>
-            <div class="integration-token token-greenhouse" style="--x:11%;--y:213px;--delay:.04s;--tilt:-9deg" aria-label="Greenhouse"><span>GH</span><img src="public/integrations/greenhouse.png" alt="" /></div>
-            <div class="integration-token token-lever" style="--x:3%;--y:280px;--delay:.16s;--tilt:7deg" aria-label="Lever"><span>LV</span><img src="public/integrations/lever.png" alt="" /></div>
-            <div class="integration-token token-workday" style="--x:28%;--y:213px;--delay:.09s;--tilt:5deg" aria-label="Workday"><span>WD</span><img src="public/integrations/workday.png" alt="" /></div>
-            <div class="integration-token token-ashby" style="--x:20%;--y:280px;--delay:.28s;--tilt:-6deg" aria-label="Ashby"><span>AS</span><img src="public/integrations/ashby.png" alt="" /></div>
-            <div class="integration-token token-bamboo" style="--x:45%;--y:213px;--delay:.13s;--tilt:-5deg" aria-label="BambooHR"><span>BH</span><img src="public/integrations/bamboohr.jpg" alt="" /></div>
-            <div class="integration-token token-sap" style="--x:37%;--y:280px;--delay:.34s;--tilt:8deg" aria-label="SAP SuccessFactors"><span>SAP</span><img src="public/integrations/sap-successfactors.png" alt="" /></div>
-            <div class="integration-token token-calendar" style="--x:62%;--y:213px;--delay:.2s;--tilt:6deg" aria-label="Google Calendar"><span>GC</span><img src="public/integrations/google-calendar.png" alt="" /></div>
-            <div class="integration-token token-outlook" style="--x:54%;--y:280px;--delay:.4s;--tilt:-8deg" aria-label="Microsoft Outlook"><span>OL</span><img src="public/integrations/microsoft-outlook.png" alt="" /></div>
-            <div class="integration-token token-teams" style="--x:79%;--y:213px;--delay:.25s;--tilt:-7deg" aria-label="Microsoft Teams"><span>MT</span><img src="public/integrations/microsoft-teams.png" alt="" /></div>
-            <div class="integration-token token-zoom" style="--x:71%;--y:280px;--delay:.47s;--tilt:5deg" aria-label="Zoom"><span>ZM</span><img src="public/integrations/zoom.png" alt="" /></div>
-            <div class="integration-token token-twilio" style="--x:87%;--y:280px;--delay:.54s;--tilt:-5deg" aria-label="Twilio Voice"><span>TW</span><img src="public/integrations/twilio.png" alt="" /></div>
-            <div class="integration-platform"><div><img src="public/valases-logo-cropped.png" alt="" /><strong>valases</strong></div><span>SECURE INTEGRATION LAYER</span></div>
+            <button class="integration-token token-greenhouse" style="--x:11%;--y:213px;--delay:.04s;--tilt:-9deg" type="button" data-integration="greenhouse" aria-label="Learn about the Greenhouse integration"><span>GH</span><img src="public/integrations/greenhouse.png" alt="" /></button>
+            <button class="integration-token token-lever" style="--x:3%;--y:280px;--delay:.16s;--tilt:7deg" type="button" data-integration="lever" aria-label="Learn about the Lever integration"><span>LV</span><img src="public/integrations/lever.png" alt="" /></button>
+            <button class="integration-token token-workday" style="--x:28%;--y:213px;--delay:.09s;--tilt:5deg" type="button" data-integration="workday" aria-label="Learn about the Workday integration"><span>WD</span><img src="public/integrations/workday.png" alt="" /></button>
+            <button class="integration-token token-ashby" style="--x:20%;--y:280px;--delay:.28s;--tilt:-6deg" type="button" data-integration="ashby" aria-label="Learn about the Ashby integration"><span>AS</span><img src="public/integrations/ashby.png" alt="" /></button>
+            <button class="integration-token token-bamboo" style="--x:45%;--y:213px;--delay:.13s;--tilt:-5deg" type="button" data-integration="bamboohr" aria-label="Learn about the BambooHR integration"><span>BH</span><img src="public/integrations/bamboohr.jpg" alt="" /></button>
+            <button class="integration-token token-sap" style="--x:37%;--y:280px;--delay:.34s;--tilt:8deg" type="button" data-integration="sap" aria-label="Learn about the SAP SuccessFactors integration"><span>SAP</span><img src="public/integrations/sap-successfactors.png" alt="" /></button>
+            <button class="integration-token token-calendar" style="--x:62%;--y:213px;--delay:.2s;--tilt:6deg" type="button" data-integration="google-calendar" aria-label="Learn about the Google Calendar integration"><span>GC</span><img src="public/integrations/google-calendar.png" alt="" /></button>
+            <button class="integration-token token-outlook" style="--x:54%;--y:280px;--delay:.4s;--tilt:-8deg" type="button" data-integration="outlook" aria-label="Learn about the Microsoft Outlook integration"><span>OL</span><img src="public/integrations/microsoft-outlook.png" alt="" /></button>
+            <button class="integration-token token-teams" style="--x:79%;--y:213px;--delay:.25s;--tilt:-7deg" type="button" data-integration="teams" aria-label="Learn about the Microsoft Teams integration"><span>MT</span><img src="public/integrations/microsoft-teams.png" alt="" /></button>
+            <button class="integration-token token-zoom" style="--x:71%;--y:280px;--delay:.47s;--tilt:5deg" type="button" data-integration="zoom" aria-label="Learn about the Zoom integration"><span>ZM</span><img src="public/integrations/zoom.png" alt="" /></button>
+            <button class="integration-token token-twilio" style="--x:87%;--y:280px;--delay:.54s;--tilt:-5deg" type="button" data-integration="twilio" aria-label="Learn about the Twilio Voice integration"><span>TW</span><img src="public/integrations/twilio.png" alt="" /></button>
+            <div class="integration-platform" aria-hidden="true"><i></i><div><img src="public/valases-logo-cropped.png" alt="" /><strong>Valases connection boundary</strong></div><span>VERIFIED &bull; SCOPED &bull; AUDITABLE</span><i></i></div>
           </div>
         </div>
       </section>
 
+      <div class="integration-sheet-layer" data-integration-sheet hidden>
+        <button class="integration-sheet-backdrop" type="button" data-sheet-close aria-label="Close integration details"></button>
+        <section class="integration-sheet" role="dialog" aria-modal="true" aria-labelledby="integration-sheet-title" tabindex="-1">
+          <div class="sheet-handle" aria-hidden="true"></div>
+          <button class="sheet-close" type="button" data-sheet-close aria-label="Close integration details">&times;</button>
+          <div class="sheet-provider">
+            <div class="sheet-logo"><img data-sheet-logo src="" alt="" /></div>
+            <div><span data-sheet-category>HIRING SYSTEM</span><h2 id="integration-sheet-title" data-sheet-title>Integration</h2></div>
+          </div>
+          <div class="sheet-grid">
+            <div class="sheet-intro">
+              <span class="sheet-kicker">WHY IT MATTERS</span>
+              <p data-sheet-summary></p>
+              <div class="sheet-boundary"><span>CONTROLLED BOUNDARY</span><p data-sheet-boundary></p></div>
+            </div>
+            <div class="sheet-use-cases">
+              <span class="sheet-kicker">HOW TEAMS USE IT</span>
+              <ul data-sheet-uses></ul>
+            </div>
+          </div>
+          <div class="sheet-footer"><span>Availability and scope are confirmed during implementation.</span><a href="demo.html">Discuss your stack <span aria-hidden="true">&nearr;</span></a></div>
+        </section>
+      </div>
+
       <section class="story-section page-shell">
-        <div class="section-index">08 <span>/</span> The experience</div>
+        <div class="section-index">The experience</div>
         <div class="story-layout">
           <div class="story-copy reveal"><h2>Clarity is<br /><span>a competitive edge.</span></h2><p>Valases is designed for the moments between the milestones: the handoffs, the questions, the quiet decisions that shape a team.</p><div class="story-tabs" role="tablist"><button class="story-tab active" data-story="brief" type="button" role="tab" aria-selected="true">Role clarity <span>01</span></button><button class="story-tab" data-story="evidence" type="button" role="tab" aria-selected="false">Candidate evidence <span>02</span></button><button class="story-tab" data-story="decision" type="button" role="tab" aria-selected="false">Confident decisions <span>03</span></button></div></div>
           <div class="story-stage reveal"><div class="stage-grid"></div><div class="stage-card"><div class="stage-card-top"><span class="mono-label">ROLE INTELLIGENCE</span><span class="stage-status">&bull; READY</span></div><h3 id="story-title">A role everyone can see.</h3><p id="story-copy">Align the team on the brief before the first candidate ever arrives.</p><div class="stage-metrics"><div><span>Team clarity</span><b id="story-metric">94%</b></div><div class="metric-line"><i id="metric-fill"></i></div></div><div class="stage-tags"><span id="story-tag-one">Role brief</span><span id="story-tag-two">Scorecard</span><span id="story-tag-three">Interview plan</span></div></div><div class="stage-cursor" aria-hidden="true">&#10003;</div></div>
@@ -339,11 +410,11 @@
 
       <section class="manifesto-section">
         <div class="manifesto-lines" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
-        <div class="page-shell manifesto-content reveal"><div class="section-index">09 <span>/</span> The belief</div><blockquote>&ldquo;The best hiring systems do more than move people through. They help teams see clearly enough to choose well.&rdquo;</blockquote><div class="manifesto-signature"><span class="signature-line"></span><span>Valases / for the people building the future</span></div></div>
+        <div class="page-shell manifesto-content reveal"><div class="section-index">The belief</div><blockquote>&ldquo;The best hiring systems do more than move people through. They help teams see clearly enough to choose well.&rdquo;</blockquote><div class="manifesto-signature"><span class="signature-line"></span><span>Valases / for the people building the future</span></div></div>
       </section>
 
       <section class="contact-section page-shell" id="contact">
-        <div class="contact-card reveal"><div class="section-index">10 <span>/</span> Begin here</div><h2>Make the next<br /><em>hire count.</em></h2><p>Tell us what you are building. We will show you what a clearer hiring system could look like inside it.</p><a class="button button-acid" href="demo.html">Book a product briefing <span>&nearr;</span></a><div class="contact-mark"><img src="public/valases-logo-cropped.png" alt="" /><i></i><i></i></div></div>
+        <div class="contact-card reveal"><div class="section-index">Begin here</div><h2>Make the next<br /><em>hire count.</em></h2><p>Tell us what you are building. We will show you what a clearer hiring system could look like inside it.</p><a class="button button-acid" href="demo.html">Book a product briefing <span>&nearr;</span></a><div class="contact-mark"><img src="public/valases-logo-cropped.png" alt="" /><i></i><i></i></div></div>
       </section>
     </main>
 
@@ -356,6 +427,7 @@
         <div class="footer-legal"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="cookies.html">Cookies</a><a href="candidate-privacy.html">Candidate privacy</a><a href="proctoring.html">Proctoring</a><a href="accessibility.html">Accessibility</a></div>
       </div>
     </footer>
-    <script src="script.js"></script>
+    <script src="public/vendor/matter.min.js"></script>
+    <script src="script.js?v=20260730-5"></script>
   </body>
 </html>

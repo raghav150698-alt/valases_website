@@ -98,7 +98,20 @@ h1,h2,h3,h4{letter-spacing:0;margin-top:0}
 .pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;align-items:stretch}
 .price-card{border:1px solid var(--line);background:#fff;padding:35px 30px;display:flex;flex-direction:column;min-height:540px}
 .price-card.featured{background:var(--forest);color:#fff;border-color:var(--forest)}
-.price-card .eyebrow{margin-bottom:35px}
+.price-card .eyebrow{margin-bottom:18px}
+.plan-billing{display:grid;grid-template-columns:1fr 1fr;background:#e7e9e2;padding:3px;margin-bottom:35px}
+.plan-billing button{min-height:38px;border:0;background:transparent;padding:8px 9px;font-size:9px;font-weight:800;cursor:pointer;color:#5c625b}
+.plan-billing button span{margin-left:4px;font-family:var(--mono);font-size:6px;color:#687500}
+.plan-billing button.active{background:var(--forest);color:#fff}
+.plan-billing button.active span{color:var(--signal)}
+.price-card.featured .plan-billing{background:rgba(255,255,255,.12)}
+.price-card.featured .plan-billing button{color:#b9c3bb}
+.price-card.featured .plan-billing button.active{background:var(--signal);color:var(--ink)}
+.price-card.featured .plan-billing button.active span{color:#526000}
+.plan-billing button:focus-visible{outline:3px solid var(--signal);outline-offset:2px}
+.launch-offer{width:max-content;max-width:100%;background:#e4edbd;color:#384812;padding:8px 10px;margin:-18px 0 20px;font-family:var(--mono);font-size:7px;font-weight:500}
+.price-card.featured .launch-offer{background:var(--signal);color:var(--ink)}
+.launch-offer[hidden],.price-transition[hidden]{display:none}
 .price-card h2{font-size:32px;margin-bottom:12px}
 .price-card>p{color:var(--muted);font-size:12px;line-height:1.6;min-height:58px}
 .price-card.featured>p{color:#aeb9b0}
@@ -106,12 +119,29 @@ h1,h2,h3,h4{letter-spacing:0;margin-top:0}
 .price sup{font-size:18px;vertical-align:top;margin-right:4px}
 .price small{font-size:11px;color:var(--muted);font-weight:500}
 .price-note{font-family:var(--mono);font-size:8px;color:var(--muted)}
+.price-transition{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:11px 0 10px;padding-bottom:12px;border-bottom:1px solid var(--line);font-size:10px;color:var(--muted)}
+.price-transition span{white-space:nowrap}.price-transition strong{color:var(--ink)}
+.price-card.featured .price-transition{border-color:var(--dark-line);color:#aeb9b0}
+.price-card.featured .price-transition strong{color:#fff}
 .price-card.featured .price small,.price-card.featured .price-note{color:#aeb9b0}
+.price-card.monthly-price .price{margin-top:58px}
 .price-card .plus-list{margin:32px 0 auto}
 .price-card.featured .plus-list li{border-color:var(--dark-line)}
 .price-card.featured .plus-list li:before{color:var(--signal)}
 .price-card .page-button{margin-top:28px;width:100%}
 .price-card:not(.featured) .page-button{background:var(--ink);color:#fff}
+.plan-boundary{margin-top:18px;padding:12px 0;border-top:1px solid var(--line);font-family:var(--mono);font-size:8px;color:var(--muted)}
+.plan-boundary strong,.plan-boundary span{display:block}.plan-boundary strong{color:var(--ink);font-size:9px;margin-bottom:5px}
+.price-card.featured .plan-boundary{border-color:var(--dark-line);color:#aeb9b0}
+.price-card.featured .plan-boundary strong{color:var(--signal)}
+.pricing-notice{margin-top:28px}.pricing-notice strong{color:var(--ink)}
+.pricing-addon-band{background:#dfe8df}
+.addon-commercial{align-self:stretch;background:var(--forest);color:#fff;padding:48px;display:flex;flex-direction:column;justify-content:center}
+.addon-commercial>span{font-family:var(--mono);font-size:8px;color:var(--signal)}
+.assessment-allowance{width:max-content;max-width:100%;margin-top:24px;padding:9px 11px;border:1px solid rgba(216,243,95,.45);font-family:var(--mono);font-size:7px;color:var(--signal)}
+.addon-commercial h3{font-size:36px;margin:28px 0 15px}
+.addon-commercial p{color:#b4c0b6;line-height:1.7;margin:0 0 32px}
+.addon-commercial .page-button{align-self:flex-start}
 .notice{border-left:3px solid var(--signal);background:#fff;padding:20px 22px;font-size:12px;line-height:1.65;color:var(--muted)}
 .dark .notice{background:rgba(255,255,255,.06);color:#bac4bc}
 .faq-list{max-width:900px;margin-left:auto}
@@ -237,6 +267,8 @@ h1,h2,h3,h4{letter-spacing:0;margin-top:0}
   .comparison{display:block;overflow-x:auto}
   .comparison th,.comparison td{min-width:150px}
   .price-card{padding:28px 22px}
+  .price-transition{align-items:flex-start;flex-direction:column;gap:5px}
+  .addon-commercial{padding:34px 24px}
   .status-row{grid-template-columns:1fr;gap:8px}
   .form-grid{grid-template-columns:1fr}
   .field.full{grid-column:auto}
@@ -249,4 +281,70 @@ h1,h2,h3,h4{letter-spacing:0;margin-top:0}
 @media(prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   *,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}
+
+/* Route identity and page entrances */
+.sub-nav a{position:relative}
+.sub-nav a[aria-current="page"]{color:#fff;font-weight:800}
+.sub-nav a[aria-current="page"]:before{content:'';position:absolute;left:-11px;top:50%;width:5px;height:5px;background:var(--signal);transform:translateY(-50%)}
+.sub-nav a[aria-current="page"]:after{content:'';position:absolute;left:0;right:0;bottom:-15px;height:2px;background:var(--signal);transform-origin:left;animation:active-rail .55s cubic-bezier(.2,.75,.2,1) both}
+
+body.page-entering{
+  --enter-x:0px;
+  --enter-y:22px;
+  --enter-scale:.992;
+  --enter-rotate:0deg;
+  --enter-blur:0px;
+  --enter-clip:inset(0 0 12% 0);
+  --enter-duration:.8s;
+}
+body[data-page="hiring"]{--enter-x:-28px;--enter-y:0px;--enter-clip:inset(0 8% 0 0);--enter-duration:.82s}
+body[data-page="assessments"]{--enter-x:30px;--enter-y:0px;--enter-clip:inset(0 0 0 10%);--enter-duration:.86s}
+body[data-page="candidate-experience"]{--enter-y:34px;--enter-scale:.975;--enter-duration:.9s}
+body[data-page="enterprise"]{--enter-y:0px;--enter-clip:inset(0 0 100% 0);--enter-duration:.95s}
+body[data-page="pricing"]{--enter-y:-24px;--enter-clip:inset(12% 0 0 0);--enter-duration:.78s}
+body[data-page="company"]{--enter-scale:1.018;--enter-blur:9px;--enter-duration:1s}
+body[data-page="trust"]{--enter-x:-18px;--enter-y:18px;--enter-rotate:-.35deg;--enter-duration:.88s}
+body[data-page="integrations"]{--enter-x:26px;--enter-scale:.985;--enter-clip:inset(0 0 0 14%);--enter-duration:.9s}
+body[data-page="implementation"]{--enter-y:38px;--enter-clip:inset(8% 0 0 0);--enter-duration:.84s}
+body[data-page="status"]{--enter-scale:.965;--enter-blur:5px;--enter-duration:.72s}
+body[data-page="demo"]{--enter-x:0px;--enter-y:42px;--enter-scale:.985;--enter-duration:.92s}
+body[data-page="privacy"]{--enter-x:-16px;--enter-y:0px;--enter-clip:inset(0 6% 0 0);--enter-duration:.7s}
+body[data-page="terms"]{--enter-x:16px;--enter-y:0px;--enter-clip:inset(0 0 0 6%);--enter-duration:.74s}
+body[data-page="cookies"]{--enter-y:24px;--enter-scale:.982;--enter-duration:.68s}
+body[data-page="candidate-privacy"]{--enter-x:-22px;--enter-y:12px;--enter-duration:.8s}
+body[data-page="proctoring"]{--enter-x:22px;--enter-y:12px;--enter-duration:.82s}
+body[data-page="accessibility"]{--enter-y:0px;--enter-scale:1.012;--enter-blur:6px;--enter-duration:.76s}
+
+body.page-entering main>*:first-child{
+  animation:page-arrive var(--enter-duration) cubic-bezier(.2,.72,.2,1) both;
+}
+body.page-entering .sub-header{animation:header-arrive .58s cubic-bezier(.2,.72,.2,1) both}
+body.page-entering .sub-hero h1,
+body.page-entering .sub-hero-copy,
+body.page-entering .hero-aside,
+body.page-entering .doc-layout>article:first-child{
+  animation:content-arrive .72s cubic-bezier(.2,.72,.2,1) both;
+}
+body.page-entering .sub-hero-copy{animation-delay:.08s}
+body.page-entering .hero-aside{animation-delay:.15s}
+
+@keyframes page-arrive{
+  from{opacity:0;transform:translate3d(var(--enter-x),var(--enter-y),0) scale(var(--enter-scale)) rotate(var(--enter-rotate));filter:blur(var(--enter-blur));clip-path:var(--enter-clip)}
+  to{opacity:1;transform:none;filter:blur(0);clip-path:inset(0)}
+}
+@keyframes content-arrive{
+  from{opacity:0;transform:translateY(18px)}
+  to{opacity:1;transform:none}
+}
+@keyframes header-arrive{
+  from{opacity:0;transform:translateY(-18px)}
+  to{opacity:1;transform:none}
+}
+@keyframes active-rail{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+
+@media(max-width:900px){
+  .sub-nav.mobile-open a[aria-current="page"]{padding-left:18px}
+  .sub-nav.mobile-open a[aria-current="page"]:before{left:0}
+  .sub-nav.mobile-open a[aria-current="page"]:after{left:18px;right:auto;bottom:6px;width:34px}
 }

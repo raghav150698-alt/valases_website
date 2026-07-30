@@ -2,6 +2,9 @@ const headerRoot = document.querySelector('[data-site-header]');
 const footerRoot = document.querySelector('[data-site-footer]');
 
 const pagePath = window.location.pathname.split('/').pop() || 'index.html';
+const pageSlug = pagePath.replace(/\.html$/i, '') || 'home';
+document.body.dataset.page = pageSlug;
+document.body.classList.add('page-entering');
 
 if (headerRoot) {
   headerRoot.innerHTML = `
@@ -72,10 +75,60 @@ if (footerRoot) {
     </footer>`;
 }
 
+const priceCards = [...document.querySelectorAll('[data-price-card]')];
+
+if (priceCards.length) {
+  const requestedBilling = new URLSearchParams(window.location.search).get('billing');
+
+  priceCards.forEach((card) => {
+    const billingControls = [...card.querySelectorAll('[data-card-billing]')];
+    let activeBilling = requestedBilling === 'monthly' ? 'monthly' : 'annual';
+
+    const renderBilling = () => {
+      const annual = activeBilling === 'annual';
+      billingControls.forEach((control) => {
+        const active = control.dataset.cardBilling === activeBilling;
+        control.classList.toggle('active', active);
+        control.setAttribute('aria-pressed', String(active));
+      });
+
+      const price = card.querySelector('[data-plan-price]');
+      const offer = card.querySelector('[data-launch-offer]');
+      const transition = card.querySelector('[data-price-transition]');
+      const standardPrice = card.querySelector('[data-standard-price]');
+      const note = card.querySelector('[data-price-note]');
+      const cta = card.querySelector('[data-plan-cta]');
+      price.textContent = annual ? card.dataset.annualPrice : card.dataset.monthlyPrice;
+      offer.hidden = !annual;
+      transition.hidden = !annual;
+      standardPrice.textContent = `$${card.dataset.annualStandard}/month`;
+      note.textContent = annual
+        ? `12-MONTH COMMITMENT / $${card.dataset.annualTotal} FIRST YEAR`
+        : 'FLEXIBLE MONTHLY PLAN / NO ANNUAL COMMITMENT';
+      cta.href = `demo.html?plan=${card.dataset.plan}&billing=${activeBilling}`;
+      card.classList.toggle('monthly-price', !annual);
+    };
+
+    billingControls.forEach((control) => control.addEventListener('click', () => {
+      activeBilling = control.dataset.cardBilling;
+      renderBilling();
+    }));
+    renderBilling();
+  });
+}
+
 const demoForm = document.querySelector('[data-demo-form]');
 if (demoForm) {
   const submitButton = demoForm.querySelector('button[type="submit"]');
   const status = demoForm.querySelector('[data-form-status]');
+  const productInterest = demoForm.querySelector('[name="product_interest"]');
+  const requestedPlan = new URLSearchParams(window.location.search).get('plan');
+  const billingInterest = demoForm.querySelector('[name="billing_interest"]');
+  const requestedBilling = new URLSearchParams(window.location.search).get('billing');
+  const validPlans = new Set(['hire-core', 'hire-growth', 'assess', 'enterprise']);
+  const validBilling = new Set(['annual', 'monthly', 'discuss']);
+  if (productInterest && validPlans.has(requestedPlan)) productInterest.value = requestedPlan;
+  if (billingInterest && validBilling.has(requestedBilling)) billingInterest.value = requestedBilling;
 
   demoForm.addEventListener('submit', async (event) => {
     event.preventDefault();

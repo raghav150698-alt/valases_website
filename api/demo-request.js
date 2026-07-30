@@ -2,6 +2,8 @@ const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const ALLOWED_REGIONS = new Set(["mumbai", "tokyo", "discuss"]);
 const ALLOWED_TEAM_SIZES = new Set(["1-5", "6-20", "21-50", "51+"]);
 const ALLOWED_HIRING_VOLUMES = new Set(["1-25", "26-100", "101-500", "500+"]);
+const ALLOWED_PRODUCT_INTERESTS = new Set(["hire-core", "hire-growth", "assess", "enterprise", "unsure"]);
+const ALLOWED_BILLING_INTERESTS = new Set(["annual", "monthly", "discuss"]);
 
 function clean(value, maxLength) {
   return String(value || "").trim().slice(0, maxLength);
@@ -35,6 +37,8 @@ module.exports = async function handler(request, response) {
     job_title: clean(body.title, 140),
     team_size: clean(body.team_size, 20),
     hiring_volume: clean(body.hiring_volume, 20),
+    product_interest: clean(body.product_interest, 30),
+    billing_interest: clean(body.billing_interest, 20),
     preferred_region: clean(body.region, 20),
     message: clean(body.message, 2000),
     source: "valases_website",
@@ -46,6 +50,12 @@ module.exports = async function handler(request, response) {
   }
   if (!ALLOWED_TEAM_SIZES.has(lead.team_size) || !ALLOWED_HIRING_VOLUMES.has(lead.hiring_volume)) {
     return sendJson(response, 400, { error: "Select valid organization details." });
+  }
+  if (!ALLOWED_PRODUCT_INTERESTS.has(lead.product_interest)) {
+    return sendJson(response, 400, { error: "Select a valid product interest." });
+  }
+  if (!ALLOWED_BILLING_INTERESTS.has(lead.billing_interest)) {
+    return sendJson(response, 400, { error: "Select a valid billing preference." });
   }
   if (!ALLOWED_REGIONS.has(lead.preferred_region) || body.consent !== "yes") {
     return sendJson(response, 400, { error: "Select a region and accept the privacy notice." });
@@ -88,6 +98,8 @@ module.exports = async function handler(request, response) {
             `Title: ${lead.job_title}`,
             `Team: ${lead.team_size}`,
             `Hiring volume: ${lead.hiring_volume}`,
+            `Product interest: ${lead.product_interest}`,
+            `Billing preference: ${lead.billing_interest}`,
             `Region: ${lead.preferred_region}`,
             `Message: ${lead.message || "-"}`,
           ].join("\n"),

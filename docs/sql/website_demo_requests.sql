@@ -6,6 +6,8 @@ create table if not exists public.website_demo_requests (
   job_title text not null,
   team_size text not null,
   hiring_volume text not null,
+  product_interest text not null default 'unsure',
+  billing_interest text not null default 'discuss',
   preferred_region text not null,
   message text not null default '',
   source text not null default 'valases_website',
@@ -14,6 +16,12 @@ create table if not exists public.website_demo_requests (
   constraint website_demo_requests_status_check check (status in ('new', 'contacted', 'qualified', 'closed')),
   constraint website_demo_requests_region_check check (preferred_region in ('mumbai', 'tokyo', 'discuss'))
 );
+
+alter table public.website_demo_requests
+  add column if not exists product_interest text not null default 'unsure';
+
+alter table public.website_demo_requests
+  add column if not exists billing_interest text not null default 'discuss';
 
 alter table public.website_demo_requests enable row level security;
 
