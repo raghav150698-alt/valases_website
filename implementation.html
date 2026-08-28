@@ -1,14 +1,756 @@
 <!doctype html>
 <html lang="en">
-<head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="theme-color" content="#102719" /><meta name="description" content="Valases implementation guide for region selection, workflow design, users, assessments, privacy, and launch acceptance." /><meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1" /><link rel="canonical" href="https://valases.com/implementation" /><link rel="alternate" hreflang="en" href="https://valases.com/implementation" /><meta property="og:type" content="website" /><meta property="og:site_name" content="Valases" /><meta property="og:url" content="https://valases.com/implementation" /><meta property="og:title" content="Enterprise Implementation Guide | Valases" /><meta property="og:description" content="Plan region selection, workflows, access, privacy, integrations, and production acceptance." /><meta property="og:image" content="https://valases.com/public/og.jpg" /><meta name="twitter:card" content="summary_large_image" /><meta name="twitter:title" content="Enterprise Implementation Guide | Valases" /><meta name="twitter:description" content="Plan region selection, workflows, access, privacy, integrations, and production acceptance." /><meta name="twitter:image" content="https://valases.com/public/og.jpg" /><title>Enterprise Implementation Guide | Valases</title><link rel="icon" href="public/valases-logo-cropped.png" /><link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /><link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" /><link rel="stylesheet" href="pages.css?v=20260730-3" /></head>
+<head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="theme-color" content="#102719" /><meta name="description" content="Valases implementation guide for region selection, workflow design, users, assessments, privacy, and launch acceptance." /><meta name="author" content="Valases" /><meta name="application-name" content="Valases" /><meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" /><link rel="canonical" href="https://valases.com/implementation" /><link rel="alternate" hreflang="en" href="https://valases.com/implementation" /><meta property="og:type" content="website" /><meta property="og:site_name" content="Valases" /><meta property="og:url" content="https://valases.com/implementation" /><meta property="og:title" content="Enterprise Implementation Guide | Valases" /><meta property="og:description" content="Valases implementation guide for region selection, workflow design, users, assessments, privacy, and launch acceptance." /><meta property="og:image" content="https://valases.com/public/og.jpg" /><meta name="twitter:card" content="summary_large_image" /><meta name="twitter:title" content="Enterprise Implementation Guide | Valases" /><meta name="twitter:description" content="Valases implementation guide for region selection, workflow design, users, assessments, privacy, and launch acceptance." /><meta name="twitter:image" content="https://valases.com/public/og.jpg" /><meta name="twitter:image:alt" content="Valases hiring and assessment platform" /><title>Enterprise Implementation Guide | Valases</title><link rel="icon" href="public/valases-logo-cropped.png" /><link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /><link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" /><link rel="stylesheet" href="pages.css?v=20260829-6" />
+<style>
+/* ── Implementation page styles ── */
+.impl-hero{
+  background:#0c1f14;
+  color:#e4efe6;
+  padding:130px 0 90px;
+  position:relative;
+  overflow:hidden;
+}
+.impl-hero::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background-image:linear-gradient(rgba(126,242,154,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(126,242,154,.045) 1px,transparent 1px);
+  background-size:48px 48px;
+  mask-image:linear-gradient(180deg,transparent,#000 28%,#000 72%,transparent);
+}
+.impl-hero-inner{
+  position:relative;
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:48px;
+  align-items:end;
+  max-width:1200px;
+  margin:0 auto;
+  padding:0 max(5vw,28px);
+}
+.impl-eyebrow{
+  font-family:'DM Mono',monospace;
+  font-size:10px;
+  letter-spacing:.14em;
+  color:#7ef29a;
+  margin-bottom:22px;
+}
+.impl-hero h1{
+  font-size:clamp(46px,6vw,84px);
+  font-weight:700;
+  line-height:.93;
+  letter-spacing:-.04em;
+  margin:0 0 28px;
+}
+.impl-hero h1 span{ color:#7ef29a; }
+.impl-hero p{
+  font-size:17px;
+  line-height:1.65;
+  color:#a8c5ae;
+  max-width:520px;
+  margin:0;
+}
+.impl-hero-aside{
+  background:rgba(126,242,154,.07);
+  border:1px solid rgba(126,242,154,.18);
+  padding:28px 28px 24px;
+  max-width:270px;
+  flex-shrink:0;
+}
+.impl-hero-aside strong{
+  display:block;
+  font-size:13px;
+  font-weight:700;
+  color:#e4efe6;
+  margin-bottom:10px;
+}
+.impl-hero-aside p{
+  font-size:12px;
+  line-height:1.6;
+  color:#82a88a;
+  margin:0;
+}
+.impl-hero-aside a{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  margin-top:18px;
+  font-size:11px;
+  font-weight:700;
+  color:#7ef29a;
+  text-decoration:none;
+  border-bottom:1px solid rgba(126,242,154,.3);
+  padding-bottom:2px;
+  transition:border-color .2s;
+}
+.impl-hero-aside a:hover{ border-color:#7ef29a; }
+
+/* Progress rail */
+.impl-progress{
+  background:#0e1c12;
+  border-bottom:1px solid rgba(126,242,154,.14);
+  position:sticky;
+  top:0;
+  z-index:20;
+}
+.impl-progress-inner{
+  max-width:1200px;
+  margin:0 auto;
+  padding:0 max(5vw,28px);
+  display:flex;
+  gap:0;
+  overflow-x:auto;
+  scrollbar-width:none;
+}
+.impl-progress-inner::-webkit-scrollbar{ display:none; }
+.impl-step-link{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  padding:16px 20px 14px;
+  text-decoration:none;
+  font-family:'DM Mono',monospace;
+  font-size:9px;
+  letter-spacing:.1em;
+  color:#587961;
+  border-bottom:2px solid transparent;
+  white-space:nowrap;
+  transition:color .2s,border-color .2s;
+}
+.impl-step-link:hover{ color:#a8c5ae; }
+.impl-step-link.active{ color:#7ef29a; border-bottom-color:#7ef29a; }
+.impl-step-num{
+  width:18px;
+  height:18px;
+  border-radius:50%;
+  background:rgba(126,242,154,.1);
+  border:1px solid rgba(126,242,154,.25);
+  display:grid;
+  place-items:center;
+  font-size:8px;
+  color:#7ef29a;
+  flex-shrink:0;
+  transition:background .2s;
+}
+.impl-step-link.active .impl-step-num{
+  background:#7ef29a;
+  color:#071308;
+}
+
+/* Main layout */
+.impl-body{
+  max-width:1200px;
+  margin:0 auto;
+  padding:72px max(5vw,28px) 100px;
+  display:grid;
+  grid-template-columns:220px 1fr;
+  gap:60px;
+  align-items:start;
+}
+.impl-sidebar{
+  position:sticky;
+  top:58px;
+}
+.impl-sidebar-label{
+  font-family:'DM Mono',monospace;
+  font-size:8px;
+  letter-spacing:.14em;
+  color:#8aac91;
+  margin-bottom:16px;
+}
+.impl-sidebar-links{
+  list-style:none;
+  padding:0;
+  margin:0 0 36px;
+}
+.impl-sidebar-links li{ border-top:1px solid #e0e8e2; }
+.impl-sidebar-links li:last-child{ border-bottom:1px solid #e0e8e2; }
+.impl-sidebar-links a{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:11px 0;
+  font-size:12px;
+  color:#3d5445;
+  text-decoration:none;
+  transition:color .18s,padding-left .18s;
+}
+.impl-sidebar-links a:hover,.impl-sidebar-links a.active{
+  color:#1a4028;
+  padding-left:6px;
+}
+.impl-sidebar-links a.active{
+  font-weight:700;
+}
+.impl-sidebar-num{
+  font-family:'DM Mono',monospace;
+  font-size:8px;
+  color:#8aac91;
+  flex-shrink:0;
+}
+.impl-sidebar-cta{
+  background:#102719;
+  color:#fff;
+  padding:22px 20px;
+}
+.impl-sidebar-cta p{
+  font-size:11px;
+  line-height:1.55;
+  color:#8aac91;
+  margin:0 0 14px;
+}
+.impl-sidebar-cta a{
+  display:inline-block;
+  background:#7ef29a;
+  color:#071308;
+  font-size:11px;
+  font-weight:800;
+  padding:10px 16px;
+  text-decoration:none;
+  transition:background .2s;
+}
+.impl-sidebar-cta a:hover{ background:#a8f5bb; }
+
+/* Phase sections */
+.impl-phases{ display:flex; flex-direction:column; gap:0; }
+.impl-phase{
+  padding:56px 0 64px;
+  border-top:1px solid #d4ddd7;
+  scroll-margin-top:60px;
+}
+.impl-phase:first-child{ border-top:0; padding-top:0; }
+.impl-phase-header{
+  display:grid;
+  grid-template-columns:56px 1fr;
+  gap:24px;
+  align-items:start;
+  margin-bottom:36px;
+}
+.impl-phase-badge{
+  width:56px;
+  height:56px;
+  background:#102719;
+  color:#7ef29a;
+  font-family:'DM Mono',monospace;
+  font-size:13px;
+  font-weight:500;
+  display:grid;
+  place-items:center;
+  flex-shrink:0;
+}
+.impl-phase-title-group{ display:flex; flex-direction:column; gap:6px; }
+.impl-phase-label{
+  font-family:'DM Mono',monospace;
+  font-size:8px;
+  letter-spacing:.12em;
+  color:#8aac91;
+}
+.impl-phase h2{
+  font-size:clamp(24px,3vw,34px);
+  font-weight:700;
+  letter-spacing:-.03em;
+  line-height:1.05;
+  margin:0;
+  color:#0d1f14;
+}
+.impl-phase > p{
+  font-size:16px;
+  line-height:1.7;
+  color:#485f4f;
+  max-width:660px;
+  margin:0 0 32px;
+}
+/* Outputs box */
+.impl-outputs{
+  background:#f2f7f3;
+  border-left:3px solid #7ef29a;
+  padding:24px 28px;
+  margin-top:8px;
+}
+.impl-outputs-label{
+  font-family:'DM Mono',monospace;
+  font-size:8px;
+  letter-spacing:.12em;
+  color:#5a7862;
+  margin-bottom:14px;
+}
+.impl-outputs ul{
+  list-style:none;
+  padding:0;
+  margin:0;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px 32px;
+}
+.impl-outputs li{
+  font-size:13px;
+  color:#304438;
+  padding-left:16px;
+  position:relative;
+  line-height:1.4;
+}
+.impl-outputs li::before{
+  content:'→';
+  position:absolute;
+  left:0;
+  color:#7ef29a;
+  font-family:'DM Mono',monospace;
+  font-size:10px;
+  top:1px;
+}
+/* Cards row */
+.impl-cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:1px;
+  background:#d4ddd7;
+  margin-top:28px;
+}
+.impl-card{
+  background:#f9fbf9;
+  padding:24px 22px;
+}
+.impl-card-icon{
+  font-family:'DM Mono',monospace;
+  font-size:18px;
+  color:#7ef29a;
+  margin-bottom:12px;
+}
+.impl-card strong{
+  display:block;
+  font-size:13px;
+  color:#0d1f14;
+  margin-bottom:6px;
+}
+.impl-card p{
+  font-size:11px;
+  line-height:1.55;
+  color:#6b8575;
+  margin:0;
+}
+/* Notice */
+.impl-notice{
+  background:#0c1f14;
+  color:#e4efe6;
+  padding:24px 28px;
+  margin-top:28px;
+  border-left:3px solid #7ef29a;
+}
+.impl-notice p{
+  font-size:13px;
+  line-height:1.6;
+  color:#a8c5ae;
+  margin:0;
+}
+.impl-notice strong{ color:#7ef29a; }
+/* Timeline steps (for certain phases) */
+.impl-timeline{
+  margin-top:28px;
+  display:flex;
+  flex-direction:column;
+  gap:0;
+}
+.impl-timeline-step{
+  display:grid;
+  grid-template-columns:28px 1fr;
+  gap:16px;
+  padding:18px 0;
+  border-top:1px solid #e0e8e2;
+}
+.impl-timeline-step:last-child{ border-bottom:1px solid #e0e8e2; }
+.impl-timeline-dot{
+  width:28px;
+  height:28px;
+  border-radius:50%;
+  border:2px solid #d4ddd7;
+  background:#fff;
+  display:grid;
+  place-items:center;
+  margin-top:2px;
+  flex-shrink:0;
+  position:relative;
+}
+.impl-timeline-dot::after{
+  content:'';
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:#c2d4c8;
+}
+.impl-timeline-step.done .impl-timeline-dot{ border-color:#7ef29a; }
+.impl-timeline-step.done .impl-timeline-dot::after{ background:#7ef29a; }
+.impl-timeline-content strong{ display:block; font-size:14px; color:#0d1f14; margin-bottom:4px; }
+.impl-timeline-content p{ font-size:12px; line-height:1.55; color:#6b8575; margin:0; }
+
+/* CTA band */
+.impl-cta-band{
+  background:#0c1f14;
+  color:#e4efe6;
+  padding:72px max(5vw,28px);
+  text-align:center;
+}
+.impl-cta-band h2{
+  font-size:clamp(32px,4vw,52px);
+  font-weight:700;
+  letter-spacing:-.04em;
+  line-height:1;
+  margin:0 0 18px;
+}
+.impl-cta-band h2 span{ color:#7ef29a; }
+.impl-cta-band p{ font-size:16px; color:#8aac91; margin:0 0 36px; }
+.impl-cta-band a{
+  display:inline-block;
+  background:#7ef29a;
+  color:#071308;
+  font-size:14px;
+  font-weight:800;
+  padding:16px 32px;
+  text-decoration:none;
+  transition:background .2s;
+}
+.impl-cta-band a:hover{ background:#a8f5bb; }
+
+/* Responsive */
+@media(max-width:900px){
+  .impl-hero-inner{ grid-template-columns:1fr; }
+  .impl-hero-aside{ max-width:100%; }
+  .impl-body{ grid-template-columns:1fr; }
+  .impl-sidebar{ position:static; }
+  .impl-outputs ul{ grid-template-columns:1fr; }
+}
+@media(max-width:560px){
+  .impl-hero{ padding:100px 0 64px; }
+  .impl-phase-header{ grid-template-columns:44px 1fr; gap:16px; }
+  .impl-phase-badge{ width:44px; height:44px; font-size:11px; }
+}
+</style>
+  <script type="application/ld+json" data-seo-page>{"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://valases.com/implementation#webpage","url":"https://valases.com/implementation","name":"Enterprise Implementation Guide","description":"Valases implementation guide for region selection, workflow design, users, assessments, privacy, and launch acceptance.","isPartOf":{"@id":"https://valases.com/#website"},"publisher":{"@id":"https://valases.com/#organization"},"inLanguage":"en","dateModified":"2026-08-29"},{"@type":"BreadcrumbList","@id":"https://valases.com/implementation#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://valases.com/"},{"@type":"ListItem","position":2,"name":"Enterprise Implementation Guide","item":"https://valases.com/implementation"}]}]}</script>
+</head>
 <body><div data-site-header></div><main id="main-content">
-  <section class="sub-hero dark"><div class="page-wrap sub-hero-grid"><div><div class="eyebrow light">IMPLEMENTATION GUIDE</div><h1>From agreement<br /><span>to accepted workflow.</span></h1><p class="sub-hero-copy">A controlled Valases rollout aligns region, privacy, users, roles, assessment design, evidence rules, and operational ownership before candidate activity begins.</p></div><aside class="hero-aside"><strong>Designed for acceptance</strong><p>Implementation ends when named customer administrators have validated the workflow, not merely when an account exists.</p></aside></div></section>
-  <section class="content-band"><div class="page-wrap doc-layout"><nav class="doc-nav" aria-label="Implementation sections"><a href="#discovery">Discovery</a><a href="#provisioning">Provisioning</a><a href="#workflow">Workflow</a><a href="#assessment">Assessment</a><a href="#acceptance">Acceptance</a><a href="#launch">Launch</a></nav><div class="doc-content">
-    <section id="discovery"><div class="eyebrow">01</div><h2>Discovery and control decisions</h2><p>Confirm the customer's legal entity, operating region, primary administrators, hiring volume, job families, retention requirements, candidate notice, accessibility process, and first integration priority.</p><h3>Outputs</h3><ul><li>Approved region and assignment source</li><li>Named implementation owners</li><li>Data and retention requirements</li><li>Pilot scope and success criteria</li></ul></section>
-    <section id="provisioning"><div class="eyebrow">02</div><h2>Organization provisioning</h2><p>Create the organization, owner, initial administrators, plan metadata, and regional assignment. Validate access through the intended production domain before inviting wider teams.</p></section>
-    <section id="workflow"><div class="eyebrow">03</div><h2>Hiring workflow design</h2><p>Define role templates, required evidence, pipeline stages, transition authority, interviewer responsibilities, decision reasons, compliance checks, and offer release permissions.</p></section>
-    <section id="assessment"><div class="eyebrow">04</div><h2>Assessment design and validation</h2><p>Select the work environment, duration, timing mode, proctoring expectations, scoring keys or checkpoints, reviewer rules, and candidate instructions. Preview the complete journey before publishing.</p></section>
-    <section id="acceptance"><div class="eyebrow">05</div><h2>Customer acceptance</h2><p>Named administrators run an end-to-end test covering role creation, candidate delivery, consent, assessment recovery, reviewer evidence, interview scorecards, decision controls, offer preparation, permissions, and support escalation.</p></section>
-    <section id="launch"><div class="eyebrow">06</div><h2>Controlled launch</h2><p>Begin with the approved pilot roles and monitor delivery failures, latency, candidate support, reviewer consistency, proctoring false positives, and workflow exceptions before expanding volume.</p><div class="notice">Self-service onboarding can be added later without weakening these controls. The product should automate the same decisions rather than bypass them.</div></section>
-  </div></div></section>
-</main><div data-site-footer></div><script src="pages.js?v=20260730-3"></script></body></html>
+
+  <!-- ── Hero ── -->
+  <section class="impl-hero">
+    <div class="impl-hero-inner">
+      <div>
+        <div class="impl-eyebrow">IMPLEMENTATION GUIDE</div>
+        <h1>From agreement<br /><span>to accepted workflow.</span></h1>
+        <p>A controlled Valases rollout aligns region, privacy, users, roles, assessment design, evidence rules, and operational ownership before candidate activity begins.</p>
+      </div>
+      <aside class="impl-hero-aside">
+        <strong>Designed for acceptance</strong>
+        <p>Implementation ends when named customer administrators have validated the workflow — not merely when an account exists.</p>
+        <a href="demo.html?plan=enterprise">Plan your rollout &nearr;</a>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ── Sticky progress rail ── -->
+  <nav class="impl-progress" aria-label="Implementation phases">
+    <div class="impl-progress-inner">
+      <a class="impl-step-link active" href="#discovery">
+        <span class="impl-step-num">01</span>DISCOVERY
+      </a>
+      <a class="impl-step-link" href="#provisioning">
+        <span class="impl-step-num">02</span>PROVISIONING
+      </a>
+      <a class="impl-step-link" href="#workflow">
+        <span class="impl-step-num">03</span>WORKFLOW
+      </a>
+      <a class="impl-step-link" href="#assessment">
+        <span class="impl-step-num">04</span>ASSESSMENT
+      </a>
+      <a class="impl-step-link" href="#acceptance">
+        <span class="impl-step-num">05</span>ACCEPTANCE
+      </a>
+      <a class="impl-step-link" href="#launch">
+        <span class="impl-step-num">06</span>LAUNCH
+      </a>
+    </div>
+  </nav>
+
+  <!-- ── Body grid ── -->
+  <div class="impl-body">
+    <!-- Sidebar -->
+    <aside class="impl-sidebar">
+      <p class="impl-sidebar-label">PHASES</p>
+      <ul class="impl-sidebar-links">
+        <li><a href="#discovery" class="active"><span class="impl-sidebar-num">01</span>Discovery</a></li>
+        <li><a href="#provisioning"><span class="impl-sidebar-num">02</span>Provisioning</a></li>
+        <li><a href="#workflow"><span class="impl-sidebar-num">03</span>Workflow design</a></li>
+        <li><a href="#assessment"><span class="impl-sidebar-num">04</span>Assessment design</a></li>
+        <li><a href="#acceptance"><span class="impl-sidebar-num">05</span>Acceptance</a></li>
+        <li><a href="#launch"><span class="impl-sidebar-num">06</span>Controlled launch</a></li>
+      </ul>
+      <div class="impl-sidebar-cta">
+        <strong style="display:block;font-size:12px;color:#e4efe6;margin-bottom:8px;">Ready to start?</strong>
+        <p>Book a 30-minute briefing to scope your implementation.</p>
+        <a href="demo.html?plan=enterprise">Book a briefing</a>
+      </div>
+    </aside>
+
+    <!-- Phases -->
+    <div class="impl-phases">
+
+      <!-- 01 Discovery -->
+      <section class="impl-phase" id="discovery">
+        <div class="impl-phase-header">
+          <div class="impl-phase-badge">01</div>
+          <div class="impl-phase-title-group">
+            <span class="impl-phase-label">PHASE ONE</span>
+            <h2>Discovery and control decisions</h2>
+          </div>
+        </div>
+        <p>Confirm the customer's legal entity, operating region, primary administrators, hiring volume, job families, retention requirements, candidate notice, accessibility process, and first integration priority.</p>
+        <div class="impl-outputs">
+          <p class="impl-outputs-label">OUTPUTS FROM THIS PHASE</p>
+          <ul>
+            <li>Approved region and assignment source</li>
+            <li>Named implementation owners</li>
+            <li>Data and retention requirements</li>
+            <li>Pilot scope and success criteria</li>
+          </ul>
+        </div>
+        <div class="impl-cards">
+          <div class="impl-card">
+            <div class="impl-card-icon">⊙</div>
+            <strong>Region selection</strong>
+            <p>Confirm legal entity, data residency, and regional cloud assignment before provisioning begins.</p>
+          </div>
+          <div class="impl-card">
+            <div class="impl-card-icon">◈</div>
+            <strong>Ownership mapping</strong>
+            <p>Identify named administrators, privacy owners, and implementation sign-off authority.</p>
+          </div>
+          <div class="impl-card">
+            <div class="impl-card-icon">◻</div>
+            <strong>Pilot scoping</strong>
+            <p>Define the job families, candidate volume, and acceptance criteria for the pilot phase.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 02 Provisioning -->
+      <section class="impl-phase" id="provisioning">
+        <div class="impl-phase-header">
+          <div class="impl-phase-badge">02</div>
+          <div class="impl-phase-title-group">
+            <span class="impl-phase-label">PHASE TWO</span>
+            <h2>Organization provisioning</h2>
+          </div>
+        </div>
+        <p>Create the organization, owner, initial administrators, plan metadata, and regional assignment. Validate access through the intended production domain before inviting wider teams.</p>
+        <div class="impl-timeline">
+          <div class="impl-timeline-step done">
+            <div class="impl-timeline-dot"></div>
+            <div class="impl-timeline-content">
+              <strong>Organization created</strong>
+              <p>Legal entity, subdomain, and regional assignment confirmed and recorded.</p>
+            </div>
+          </div>
+          <div class="impl-timeline-step done">
+            <div class="impl-timeline-dot"></div>
+            <div class="impl-timeline-content">
+              <strong>Owner and admins provisioned</strong>
+              <p>Named owner account and initial administrator seats activated with role-appropriate permissions.</p>
+            </div>
+          </div>
+          <div class="impl-timeline-step">
+            <div class="impl-timeline-dot"></div>
+            <div class="impl-timeline-content">
+              <strong>Domain access validated</strong>
+              <p>All initial users confirm access via the production domain before broader invitation.</p>
+            </div>
+          </div>
+          <div class="impl-timeline-step">
+            <div class="impl-timeline-dot"></div>
+            <div class="impl-timeline-content">
+              <strong>SSO and provisioning scope</strong>
+              <p>Identity provider integration confirmed and attribute mapping validated before wider rollout.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 03 Workflow -->
+      <section class="impl-phase" id="workflow">
+        <div class="impl-phase-header">
+          <div class="impl-phase-badge">03</div>
+          <div class="impl-phase-title-group">
+            <span class="impl-phase-label">PHASE THREE</span>
+            <h2>Hiring workflow design</h2>
+          </div>
+        </div>
+        <p>Define role templates, required evidence, pipeline stages, transition authority, interviewer responsibilities, decision reasons, compliance checks, and offer release permissions.</p>
+        <div class="impl-outputs">
+          <p class="impl-outputs-label">WORKFLOW DECISIONS</p>
+          <ul>
+            <li>Role templates and pipeline stages</li>
+            <li>Evidence requirements per stage</li>
+            <li>Transition and decision authority</li>
+            <li>Offer release and approval gates</li>
+            <li>Compliance check configuration</li>
+            <li>Interviewer responsibility mapping</li>
+          </ul>
+        </div>
+        <div class="impl-cards">
+          <div class="impl-card">
+            <div class="impl-card-icon">▦</div>
+            <strong>Stage design</strong>
+            <p>Map each pipeline stage to required actions, responsible parties, and transition criteria.</p>
+          </div>
+          <div class="impl-card">
+            <div class="impl-card-icon">◎</div>
+            <strong>Decision controls</strong>
+            <p>Configure who can move, hold, or reject a candidate at each stage and what evidence is required.</p>
+          </div>
+          <div class="impl-card">
+            <div class="impl-card-icon">⊞</div>
+            <strong>Offer workflow</strong>
+            <p>Set approval chains, offer generation rules, and communication triggers before go-live.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 04 Assessment -->
+      <section class="impl-phase" id="assessment">
+        <div class="impl-phase-header">
+          <div class="impl-phase-badge">04</div>
+          <div class="impl-phase-title-group">
+            <span class="impl-phase-label">PHASE FOUR</span>
+            <h2>Assessment design and validation</h2>
+          </div>
+        </div>
+        <p>Select the work environment, duration, timing mode, proctoring expectations, scoring keys or checkpoints, reviewer rules, and candidate instructions. Preview the complete journey before publishing.</p>
+        <div class="impl-cards">
+          <div class="impl-card">
+            <div class="impl-card-icon">◑</div>
+            <strong>Environment selection</strong>
+            <p>Choose the work format: coding, spreadsheet, accounting, tax, MCQ, or case. Each requires a specific delivery environment.</p>
+          </div>
+          <div class="impl-card">
+            <div class="impl-card-icon">◷</div>
+            <strong>Timing and proctoring</strong>
+            <p>Set duration, timing mode, consent-led proctoring controls, and candidate communication expectations.</p>
+          </div>
+          <div class="impl-card">
+            <div class="impl-card-icon">◈</div>
+            <strong>Scoring and review</strong>
+            <p>Define scoring keys or qualitative checkpoints, reviewer assignment rules, and AI-assist thresholds.</p>
+          </div>
+          <div class="impl-card">
+            <div class="impl-card-icon">◻</div>
+            <strong>Preview and sign-off</strong>
+            <p>Run through the full candidate journey end-to-end before publishing to live roles.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 05 Acceptance -->
+      <section class="impl-phase" id="acceptance">
+        <div class="impl-phase-header">
+          <div class="impl-phase-badge">05</div>
+          <div class="impl-phase-title-group">
+            <span class="impl-phase-label">PHASE FIVE</span>
+            <h2>Customer acceptance</h2>
+          </div>
+        </div>
+        <p>Named administrators run an end-to-end test covering role creation, candidate delivery, consent, assessment recovery, reviewer evidence, interview scorecards, decision controls, offer preparation, permissions, and support escalation.</p>
+        <div class="impl-outputs">
+          <p class="impl-outputs-label">ACCEPTANCE CHECKLIST</p>
+          <ul>
+            <li>Role creation and pipeline staging</li>
+            <li>Candidate invitation and consent flow</li>
+            <li>Assessment delivery and recovery</li>
+            <li>Reviewer evidence and scoring</li>
+            <li>Interview scorecards and notes</li>
+            <li>Decision controls and audit trail</li>
+            <li>Offer preparation and approvals</li>
+            <li>Support escalation path tested</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 06 Launch -->
+      <section class="impl-phase" id="launch">
+        <div class="impl-phase-header">
+          <div class="impl-phase-badge">06</div>
+          <div class="impl-phase-title-group">
+            <span class="impl-phase-label">PHASE SIX</span>
+            <h2>Controlled launch</h2>
+          </div>
+        </div>
+        <p>Begin with the approved pilot roles and monitor delivery failures, latency, candidate support, reviewer consistency, proctoring false positives, and workflow exceptions before expanding volume.</p>
+        <div class="impl-timeline">
+          <div class="impl-timeline-step">
+            <div class="impl-timeline-dot"></div>
+            <div class="impl-timeline-content">
+              <strong>Pilot roles live</strong>
+              <p>Activate only the agreed pilot job families and candidate volume at launch.</p>
+            </div>
+          </div>
+          <div class="impl-timeline-step">
+            <div class="impl-timeline-dot"></div>
+            <div class="impl-timeline-content">
+              <strong>Monitoring window</strong>
+              <p>Track delivery failures, assessment latency, reviewer response times, and support volume for an agreed period.</p>
+            </div>
+          </div>
+          <div class="impl-timeline-step">
+            <div class="impl-timeline-dot"></div>
+            <div class="impl-timeline-content">
+              <strong>Volume expansion</strong>
+              <p>Expand to additional roles and regions only after pilot metrics meet acceptance criteria.</p>
+            </div>
+          </div>
+        </div>
+        <div class="impl-notice">
+          <p><strong>Self-service onboarding</strong> can be added later without weakening these controls. The product should automate the same decisions — not bypass them.</p>
+        </div>
+      </section>
+
+    </div><!-- /impl-phases -->
+  </div><!-- /impl-body -->
+
+  <!-- ── CTA band ── -->
+  <section class="impl-cta-band">
+    <h2>Ready to plan<br /><span>your rollout?</span></h2>
+    <p>Book a 30-minute briefing and we'll scope the implementation against your region, governance requirements, and rollout priorities.</p>
+    <a href="demo.html?plan=enterprise">Book a briefing &nearr;</a>
+  </section>
+
+</main><div data-site-footer></div>
+<script src="pages.js?v=20260829-6"></script>
+<script>
+/* ── Implementation page: sticky nav highlight ── */
+(function () {
+  const phases = document.querySelectorAll('.impl-phase');
+  const progressLinks = document.querySelectorAll('.impl-step-link');
+  const sidebarLinks = document.querySelectorAll('.impl-sidebar-links a');
+
+  const setActive = (id) => {
+    progressLinks.forEach((l) => l.classList.toggle('active', l.getAttribute('href') === '#' + id));
+    sidebarLinks.forEach((l) => l.classList.toggle('active', l.getAttribute('href') === '#' + id));
+  };
+
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) setActive(entry.target.id);
+    });
+  }, { rootMargin: '-30% 0px -55% 0px' });
+
+  phases.forEach((p) => obs.observe(p));
+
+  /* smooth scroll on rail clicks */
+  document.querySelectorAll('.impl-step-link, .impl-sidebar-links a').forEach((link) => {
+    link.addEventListener('click', (e) => {
+      const target = document.querySelector(link.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+})();
+</script>
+</body>
+</html>

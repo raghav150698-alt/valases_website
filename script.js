@@ -255,8 +255,12 @@ if (integrationSheetLayer) {
 
 const integrationRain = document.querySelector('.integration-rain');
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+const lightweightIntegrationMotion = window.matchMedia('(max-width: 700px), (pointer: coarse)');
 
-if (integrationRain && window.Matter && !reduceMotion.matches) {
+const setupIntegrationRain = () => {
+  if (integrationRain && lightweightIntegrationMotion.matches && !reduceMotion.matches) {
+    integrationRain.classList.add('physics-mobile');
+  } else if (integrationRain && window.Matter && !reduceMotion.matches) {
   const tokens = [...integrationRain.querySelectorAll('.integration-token')];
   let physicsFrame = 0;
   let resizeTimer = 0;
@@ -266,7 +270,7 @@ if (integrationRain && window.Matter && !reduceMotion.matches) {
     window.cancelAnimationFrame(physicsFrame);
     const { Engine, Bodies, Body, Composite } = window.Matter;
     const engine = Engine.create({ enableSleeping: true });
-    engine.gravity.y = 0.38;
+    engine.gravity.y = 0.5;
 
     const width = integrationRain.clientWidth;
     const height = integrationRain.clientHeight;
@@ -314,7 +318,7 @@ if (integrationRain && window.Matter && !reduceMotion.matches) {
       settledFrames = settled ? settledFrames + 1 : 0;
       elapsedFrames += 1;
 
-      if (settledFrames < 96 && elapsedFrames < 1080) {
+      if (settledFrames < 45 && elapsedFrames < 420) {
         physicsFrame = window.requestAnimationFrame(tick);
       } else {
         bodies.forEach((body) => Body.setVelocity(body, { x: 0, y: 0 }));
@@ -337,8 +341,19 @@ if (integrationRain && window.Matter && !reduceMotion.matches) {
     window.clearTimeout(resizeTimer);
     resizeTimer = window.setTimeout(runIntegrationPhysics, 180);
   });
-} else if (integrationRain) {
-  integrationRain.classList.add('physics-static');
+  } else if (integrationRain) {
+    integrationRain.classList.add('physics-static');
+  }
+};
+
+if (integrationRain && !lightweightIntegrationMotion.matches && !reduceMotion.matches && !window.Matter) {
+  const matterScript = document.createElement('script');
+  matterScript.src = 'public/vendor/matter.min.js';
+  matterScript.onload = setupIntegrationRain;
+  matterScript.onerror = () => integrationRain.classList.add('physics-static');
+  document.head.appendChild(matterScript);
+} else {
+  setupIntegrationRain();
 }
 
 const productLinks = [...document.querySelectorAll('[data-product-link]')];
@@ -369,4 +384,25 @@ signalVisual?.addEventListener('pointermove', (event) => {
 });
 signalVisual?.addEventListener('pointerleave', () => {
   signalVisual.style.transform = '';
+});
+
+/* -------- Scroll-to-top button -------- */
+const scrollTopBtn = document.createElement('button');
+scrollTopBtn.className = 'scroll-top';
+scrollTopBtn.setAttribute('aria-label', 'Scroll to top of page');
+scrollTopBtn.setAttribute('title', 'Back to top');
+scrollTopBtn.innerHTML = `<svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="18 15 12 9 6 15"/></svg>`;
+document.body.appendChild(scrollTopBtn);
+
+let _scrollTopVisible = false;
+window.addEventListener('scroll', () => {
+  const shouldShow = window.scrollY > 420;
+  if (shouldShow !== _scrollTopVisible) {
+    _scrollTopVisible = shouldShow;
+    scrollTopBtn.classList.toggle('visible', shouldShow);
+  }
+}, { passive: true });
+
+scrollTopBtn.addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 });

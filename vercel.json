@@ -2,6 +2,12 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "outputDirectory": ".",
   "cleanUrls": true,
+  "redirects": [
+    { "source": "/hiring-platform-middle-east", "destination": "/hiring", "permanent": true },
+    { "source": "/hiring-platform-europe", "destination": "/hiring", "permanent": true },
+    { "source": "/hiring-platform-asia", "destination": "/hiring", "permanent": true },
+    { "source": "/jobs-india", "destination": "/candidate-experience", "permanent": true }
+  ],
   "headers": [
     {
       "source": "/(.*)",
